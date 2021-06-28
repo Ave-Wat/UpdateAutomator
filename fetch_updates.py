@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import subprocess
 
 base_url = 'https://cs.carleton.edu/faculty/mtie/lab-updates-2021/'
 headers = requests.utils.default_headers()
@@ -14,10 +15,15 @@ def get_file_num():
     return len(items)
 
 def get_files(file_num):
-    """idea"""
-    file_list = []
+    for i in range(1, file_num + 1):
+	"""download file"""
+	url = base_url + i
+	tar_file = requests.get(url, allow_redirects = True
+	filename = i + '.tar.Z'
+	open(filename, 'wb').write(tar_file.content)
     
-    return file_list
+def un_tar_files():
+    
 
 
 get_files(get_file_num())
