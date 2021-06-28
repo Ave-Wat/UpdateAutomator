@@ -18,17 +18,22 @@ def get_file_num():
 
 def get_files(file_num):
     for i in range(1, file_num + 1):
-        filename = i + '.tar.Z'
+        filename = "{}.tar.Z".format(i)
         file = open("/etc/scripts-done/AutoUpdatorHistory.txt", "w")
-        #read history file and check what's there. if fileName already exists in autoUpdatorHistory etc then don't do the next steps. If it doesn't, do the next steps.
+        #read history file and check what's there. if fileName already exists in autoUpdatorHistory etc 
+	#then don't do the next steps. If it doesn't, do the next steps.
         """download file"""
-        url = base_url + i
+        url = "{}{}.tar.Z".format(base_url, i)
         tar_file = requests.get(url, allow_redirects = True)
         open(filename, 'wb').write(tar_file.content)
         extract = subprocess.Popen(['tar -xvzf', filename])
-        run = subprocess.Popen(['open', './' + i + '/' + i + '.script'])
+        run = subprocess.Popen(['open', "./{}/{}.script".format(i, i)])
         file.write(filename)
         file.close()
     
-get_files(get_file_num())
+def main():
+    get_files(get_file_num())
 
+
+if __name__ == "__main__":
+    main()
