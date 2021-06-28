@@ -34,7 +34,7 @@ def get_files(file_num):
 			open(filename, 'wb').write(tar_file.content)
 			extract = subprocess.Popen(['tar', '-xvzf', filename])
 			run = subprocess.Popen(['bash', "./{}/{}.script".format(i, i)])
-			file.write(filename)
+			file.write("{}\n".format(filename))
     
 	file.close()
     
