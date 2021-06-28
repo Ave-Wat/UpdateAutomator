@@ -9,15 +9,15 @@ headers = requests.utils.default_headers()
 headers.update({'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36",})
 
 def get_file_num():
-    url = base_url + "descriptions.txt"
-    descriptions_file = requests.get(url, headers=headers)
-    content = descriptions_file.content
-    items = content.splitlines()
-    print(items)
-    return len(items)
+	url = base_url + "descriptions.txt"
+	descriptions_file = requests.get(url, headers=headers)
+	content = descriptions_file.content
+	items = content.splitlines()
+	print(items)
+	return len(items)
 
 def get_files(file_num):
-    file = open("AutoUpdatorHistory.txt", "w+")
+	file = open("AutoUpdatorHistory.txt", "w+")
 
 	for i in range(1, file_num + 1):
 		filename = "{}.tar.Z".format(i)
@@ -36,11 +36,11 @@ def get_files(file_num):
 			run = subprocess.Popen(['open', "./{}/{}.script".format(i, i)])
 			file.write(filename)
     
-    file.close()
+	file.close()
     
 def main():
-   	get_files(get_file_num())
+	get_files(get_file_num())
 
 
 if __name__ == "__main__":
-    main()
+	main()
