@@ -1,2 +1,0 @@
-#!/bin/csh
-echo "mtie was here" >> /tmp/aaa-test1

@@ -1,2 +1,0 @@
-#!/bin/csh
-echo "Thank goodness that it is Friday" >> /tmp/3
