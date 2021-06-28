@@ -23,9 +23,8 @@ def get_files(file_num):
 	tar_file = requests.get(url, allow_redirects = True
 	filename = i + '.tar.Z'
 	open(filename, 'wb').write(tar_file.content)
-    
-def un_tar_files():
-    
+    	extract = subprocess.Popen(['tar -xvzf', filename])
+     	run = subprocess.Popen(['open', './' + i + '/' + i + '.script'])
 
 
 def writeToAFile(filename):
