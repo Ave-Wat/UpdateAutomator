@@ -4,5 +4,6 @@ This project was created by a team of System Administrator interns at Carleton C
 
 ### How to Use
 To schedule the code to run daily, execute `bash crontab.script`.
+
 To run the code, execute `python3 fetch_updates.py`.
 
