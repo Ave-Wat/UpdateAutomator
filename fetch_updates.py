@@ -12,12 +12,12 @@ def get_file_num():
     url = base_url + "descriptions.txt"
     descriptions_file = requests.get(url, headers=headers)
     content = descriptions_file.content
-	items = content.splitlines()
-	print(items)
-	return len(items)
+    items = content.splitlines()
+    print(items)
+    return len(items)
 
 def get_files(file_num):
-	file = open("AutoUpdatorHistory.txt", "w+")
+    file = open("AutoUpdatorHistory.txt", "w+")
 
 	for i in range(1, file_num + 1):
 		filename = "{}.tar.Z".format(i)
