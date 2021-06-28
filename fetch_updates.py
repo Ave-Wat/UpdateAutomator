@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import subprocess
 
 #make sure to go in and edit your chrontab by typing vi chrontab -e then once you get in there changing it to visual mode before adding the line 08*** python3 /path/to/test_script.py filling in the path there
 
@@ -16,10 +17,21 @@ def get_file_num():
     return len(items)
 
 def get_files(file_num):
-    """idea"""
-    file_list = []
+    for i in range(1, file_num + 1):
+	"""download file"""
+	url = base_url + i
+	tar_file = requests.get(url, allow_redirects = True
+	filename = i + '.tar.Z'
+	open(filename, 'wb').write(tar_file.content)
     
-    return file_list
+def un_tar_files():
+    
 
 
+def writeToAFile(filename):
+    file = open("AutoUpdatorHistory.txt", "w")
+    file.write(filename)
+    file.close()
+    
 get_files(get_file_num())
+
