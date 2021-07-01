@@ -40,7 +40,7 @@ def get_files(file_num):
 			open(filename, 'wb').write(tar_file.content)
 			extract = subprocess.Popen(['tar', '-xvzf', filename])
 			run = subprocess.Popen(['bash', "./{}/{}.script".format(i, i)])
-			write = subprocess.Popen(['echo "{}" >> update_history.txt'.format(filename)])
+			write = subprocess.Popen(['bash', "write_history.sh", filename])
     
 def main():
 	get_files(get_file_num())
