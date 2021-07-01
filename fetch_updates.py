@@ -15,19 +15,23 @@ def get_file_num():
 	descriptions_file = requests.get(url, headers=headers)
 	content = descriptions_file.content
 	items = content.splitlines()
-	print(items)
 	return len(items)
 
+def read_automator_history():
+	file_list = []	
+	read_history = subprocess.Popen(['bash', "read_history.sh"], stdout=subprocess.PIPE)
+	for line in read_history.stdout:
+		file_list.append(line.strip().decode('utf8'))
+	return file_list       
+
 def get_files(file_num):
-	file = open("AutoUpdatorHistory.txt", "w+")
+	prev_run_files = read_automator_history()	
 
 	for i in range(1, file_num + 1):
 		filename = "{}.tar.Z".format(i)
-        
 		already_run = False
-		for line in file:
-			if filename in line:
-				already_run = True
+		if(filename in prev_run_files):
+			already_run = True
         
 		if already_run == False:
 			"""download file"""
@@ -36,9 +40,6 @@ def get_files(file_num):
 			open(filename, 'wb').write(tar_file.content)
 			extract = subprocess.Popen(['tar', '-xvzf', filename])
 			run = subprocess.Popen(['bash', "./{}/{}.script".format(i, i)])
-			file.write(filename)
-    
-	file.close()
     
 def main():
 	get_files(get_file_num())
