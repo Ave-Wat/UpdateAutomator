@@ -1,5 +1,5 @@
 #!/bin/bash 
-updateHistory="update_history.txt"
+updateHistory="/Users/wattsa2/Desktop/UpdateAutomator/update_history.txt"
 prevRunFiles=()
 
 read_history_file() {	

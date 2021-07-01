@@ -4,7 +4,9 @@ import requests
 from bs4 import BeautifulSoup
 import subprocess
 
-#make sure to go in and edit your chrontab by typing vi chrontab -e then once you get in there changing it to visual mode before adding the line 0 7 * * * /usr/bin/python3 /Users/cslab/Desktop/UpdateAutomator/fetch_updates.py
+#note: grant cron full-disk access (https://osxdaily.com/2020/04/27/fix-cron-permissions-macos-full-disk-access/) 
+#note: make sure all files have full directory paths (both read_history.sh and write_history.sh have paths in them)
+
 base_url = 'https://cs.carleton.edu/faculty/mtie/lab-updates-2021/'
 headers = requests.utils.default_headers()
 headers.update({'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36",})
@@ -18,7 +20,7 @@ def get_file_num():
 
 def read_automator_history():
 	file_list = []	
-	read_history = subprocess.Popen(['bash', "read_history.sh"], stdout=subprocess.PIPE)
+	read_history = subprocess.Popen(['bash', "/Users/wattsa2/Desktop/UpdateAutomator/read_history.sh"], stdout=subprocess.PIPE)
 	for line in read_history.stdout:
 		file_list.append(line.strip().decode('utf8'))
 	return file_list       
@@ -36,10 +38,10 @@ def get_files(file_num):
 			"""download file"""
 			url = "{}{}.tar.Z".format(base_url, i)
 			tar_file = requests.get(url, allow_redirects = True)
-			open(filename, 'wb').write(tar_file.content)
+			open('/Users/wattsa2/Desktop/UpdateAutomator/{}'.format(filename), 'wb').write(tar_file.content)
 			extract = subprocess.Popen(['tar', '-xvzf', filename])
 			run = subprocess.Popen(['bash', "./{}/{}.script".format(i, i)])
-			write = subprocess.Popen(['bash', "write_history.sh", filename])
+			write = subprocess.Popen(['bash', "/Users/wattsa2/Desktop/UpdateAutomator/write_history.sh", filename])
     
 def main():
 	get_files(get_file_num())
