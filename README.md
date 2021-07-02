@@ -8,4 +8,6 @@ To schedule the code to run daily, execute `bash crontab.sh`.
 To run the code, execute `python3 fetch_updates.py`.
 
 ### Notes
-The files fetch_updates.py, crontab.sh, write_history.sh, and read_history.sh all have filepaths hardcoded in. If changing where the files are ran, will need to edit all filepaths.
+- The files fetch_updates.py, crontab.sh, write_history.sh, and read_history.sh all have filepaths hardcoded in. If changing where the files are ran, will need to edit all filepaths.
+- Must give cron full-disk access.
+
