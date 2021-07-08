@@ -20,7 +20,7 @@ def get_file_num():
 
 def read_automator_history():
 	file_list = []	
-	read_history = subprocess.Popen(['bash', "~/Desktop/UpdateAutomator/read_history.sh"], stdout=subprocess.PIPE)
+	read_history = subprocess.Popen(['bash', "/Users/wattsa2/Desktop/UpdateAutomator/read_history.sh"], stdout=subprocess.PIPE)
 	for line in read_history.stdout:
 		file_list.append(line.strip().decode('utf8'))
 	return file_list       
@@ -38,10 +38,10 @@ def get_files(file_num):
 			"""download file"""
 			url = "{}{}.tar.Z".format(base_url, i)
 			tar_file = requests.get(url, allow_redirects = True)
-			open('~/Desktop/UpdateAutomator/{}'.format(filename), 'wb').write(tar_file.content)
+			open('/Users/wattsa2/Desktop/UpdateAutomator/{}'.format(filename), 'wb').write(tar_file.content)
 			extract = subprocess.Popen(['tar', '-xvzf', filename])
 			run = subprocess.Popen(['bash', "./{}/{}.script".format(i, i)])
-			write = subprocess.Popen(['bash', "~/Desktop/UpdateAutomator/write_history.sh", filename])
+			write = subprocess.Popen(['bash', "/Users/wattsa2/Desktop/UpdateAutomator/write_history.sh", filename])
     
 def main():
 	get_files(get_file_num())
