@@ -42,7 +42,7 @@ def get_files(file_num):
 			extract = subprocess.Popen(['tar', '-xvzf', filename])
 			run = subprocess.Popen(['bash', "./{}/{}.script".format(i, i)])
 			write = subprocess.Popen(['bash', "/Users/wattsa2/Desktop/UpdateAutomator/write_history.sh", filename])
-    
+			remove = subprocess.Popen(['bash', "/Users/wattsa2/Desktop/UpdateAutomator/remove_files.sh", filename])    
 def main():
 	get_files(get_file_num())
 
