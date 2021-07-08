@@ -4,7 +4,7 @@ This project was created by a team of System Administrator interns at Carleton C
 
 ## How to Use
 ### Requirements
-- The files fetch_updates.py, crontab.sh, write_history.sh, and read_history.sh all have filepaths hardcoded in. If changing where the files are ran, will need to edit all filepaths.
+- The files fetch_updates.py, crontab.sh, write_history.sh, and read_history.sh all have filepaths hardcoded in. If changing where the files are ran, will need to edit all filepaths. The filepaths start at the root home directory.
 - Must give [cron full-disk access](https://osxdaily.com/2020/04/27/fix-cron-permissions-macos-full-disk-access/). 
 
 ### Execution
