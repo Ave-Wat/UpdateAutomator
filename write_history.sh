@@ -1,3 +1,3 @@
 filename=$1
 
-echo $filename >> /Users/wattsa2/Desktop/UpdateAutomator/update_history.txt
+echo $filename >> /usr/local/admin/UpdateAutomator/update_history.txt
