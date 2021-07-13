@@ -10,6 +10,7 @@ import subprocess
 base_url = 'https://cs.carleton.edu/faculty/mtie/lab-updates-2021/'
 headers = requests.utils.default_headers()
 headers.update({'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36",})
+path = '/usr/local/admin/UpdateAutomator'
 
 def get_file_num():
 	url = base_url + "descriptions.txt"
@@ -20,7 +21,7 @@ def get_file_num():
 
 def read_automator_history():
 	file_list = []	
-	read_history = subprocess.Popen(['bash', "/usr/local/admin/UpdateAutomator/read_history.sh"], stdout=subprocess.PIPE)
+	read_history = subprocess.Popen(['bash', "{}/read_history.sh".format(path), path], stdout=subprocess.PIPE)
 	for line in read_history.stdout:
 		file_list.append(line.strip().decode('utf8'))
 	return file_list       
@@ -34,15 +35,19 @@ def get_files(file_num):
 		if(filename in prev_run_files):
 			already_run = True
         
+		updates_path = path + "/updates"
+
 		if already_run == False:
 			"""download file"""
 			url = "{}{}.tar.Z".format(base_url, i)
 			tar_file = requests.get(url, allow_redirects = True)
-			open('/usr/local/admin/UpdateAutomator/{}'.format(filename), 'wb').write(tar_file.content)
-			extract = subprocess.Popen(['tar', '-xvzf', filename])
-			run = subprocess.Popen(['bash', "./{}/{}.script".format(i, i)])
-			write = subprocess.Popen(['bash', "/usr/local/admin/UpdateAutomator/write_history.sh", filename])
-			remove = subprocess.Popen(['bash', "/usr/local/admin/UpdateAutomator/remove_files.sh", filename])    
+			make_updates_dir = subprocess.Popen(['mkdir', '-p',  updates_path])
+			open('{}/{}'.format(updates_path, filename), 'wb').write(tar_file.content)
+			extract = subprocess.Popen(['tar', '-xvzf', "{}/{}".format(updates_path, filename), '-C', updates_path])
+			run_downloaded_script = subprocess.Popen(['bash', "{}/{}/{}.script".format(updates_path, i, i)])
+			write_history = subprocess.Popen(['bash', "{}/write_history.sh".format(path), filename, path])
+			remove_updates = subprocess.Popen(['rm', '-rf', "{}/*".format(updates_path)])
+
 def main():
 	get_files(get_file_num())
 

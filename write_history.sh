@@ -1,3 +1,6 @@
-filename=$1
+#!/bin/bash
 
-echo $filename >> /usr/local/admin/UpdateAutomator/update_history.txt
+filename=$1
+path=$2
+
+echo $filename >> "$path"/update_history.txt

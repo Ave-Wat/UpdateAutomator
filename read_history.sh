@@ -1,5 +1,8 @@
 #!/bin/bash 
-updateHistory="/usr/local/admin/UpdateAutomator/update_history.txt"
+
+path=$1
+
+updateHistory="${path}/update_history.txt"
 prevRunFiles=()
 
 read_history_file() {	
