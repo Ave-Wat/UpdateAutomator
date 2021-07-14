@@ -11,6 +11,7 @@ base_url = 'https://cs.carleton.edu/faculty/mtie/lab-updates-2021/'
 headers = requests.utils.default_headers()
 headers.update({'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36",})
 path = '/usr/local/admin/UpdateAutomator'
+updates_path = path + "/updates"
 
 def get_file_num():
 	url = base_url + "descriptions.txt"
@@ -35,22 +36,24 @@ def get_files(file_num):
 		if(filename in prev_run_files):
 			already_run = True
         
-		updates_path = path + "/updates"
-
 		if already_run == False:
 			"""download file"""
 			url = "{}{}.tar.Z".format(base_url, i)
 			tar_file = requests.get(url, allow_redirects = True)
 			make_updates_dir = subprocess.Popen(['mkdir', '-p',  updates_path])
-			open('{}/{}'.format(updates_path, filename), 'wb').write(tar_file.content)
+			open('{}/{}'.format(updates_path, filename), 'w+')
+			print(tar_file.content)
+			with open('{}/{}'.format(updates_path, filename), 'wb') as file:
+				file.write(tar_file.raw.read())
+				print("print" + str(i))
+				file.close
 			extract = subprocess.Popen(['tar', '-xvzf', "{}/{}".format(updates_path, filename), '-C', updates_path])
 			run_downloaded_script = subprocess.Popen(['bash', "{}/{}/{}.script".format(updates_path, i, i)])
 			write_history = subprocess.Popen(['bash', "{}/write_history.sh".format(path), filename, path])
-			remove_updates = subprocess.Popen(['rm', '-rf', "{}/*".format(updates_path)])
 
 def main():
 	get_files(get_file_num())
-
+	#remove_updates = subprocess.Popen(['rm', '-rf', updates_path])
 
 if __name__ == "__main__":
 	main()
