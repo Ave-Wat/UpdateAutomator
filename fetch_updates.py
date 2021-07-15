@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import time
 import requests
 from bs4 import BeautifulSoup
 import subprocess
@@ -41,13 +42,10 @@ def get_files(file_num):
 			url = "{}{}.tar.Z".format(base_url, i)
 			tar_file = requests.get(url, allow_redirects = True)
 			make_updates_dir = subprocess.Popen(['mkdir', '-p',  updates_path])
-			open('{}/{}'.format(updates_path, filename), 'w+')
-			print(tar_file.content)
-			with open('{}/{}'.format(updates_path, filename), 'wb') as file:
-				file.write(tar_file.raw.read())
-				print("print" + str(i))
-				file.close
+			time.sleep(1)
+			open('{}/{}'.format(updates_path, filename), 'wb').write(tar_file.content)
 			extract = subprocess.Popen(['tar', '-xvzf', "{}/{}".format(updates_path, filename), '-C', updates_path])
+			time.sleep(1)
 			run_downloaded_script = subprocess.Popen(['bash', "{}/{}/{}.script".format(updates_path, i, i)])
 			write_history = subprocess.Popen(['bash', "{}/write_history.sh".format(path), filename, path])
 
