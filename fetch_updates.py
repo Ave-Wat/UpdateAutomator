@@ -51,7 +51,7 @@ def get_files(file_num):
 
 def main():
 	get_files(get_file_num())
-	#remove_updates = subprocess.Popen(['rm', '-rf', updates_path])
+	remove_updates = subprocess.Popen(['rm', '-rf', updates_path])
 
 if __name__ == "__main__":
 	main()
